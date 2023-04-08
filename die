@@ -39,7 +39,7 @@ elif [[ $# -gt 0 && $1 =~ [0-9]d[0-9] ]]; then
     
     heading=$(printf "Rolling %sd%s" $numberofdie $diespots)
     
-    drumroll "$heading"
+    # drumroll "$heading"
 
     for ((i=1;i<=numberofdie;i++));
     do
@@ -48,7 +48,7 @@ elif [[ $# -gt 0 && $1 =~ [0-9]d[0-9] ]]; then
     done
     echo ""
 else
-    drumroll "Rolling 1d6"
+    # drumroll "Rolling 1d6"
 
     output=$(( RANDOM % 6 + 1 ))
     echo "$output"
