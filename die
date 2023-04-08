@@ -18,6 +18,15 @@ drumroll () {
     sleep 0.4
 }
 
+# optstring="n"
+# quickmode=1
+
+# while getopts ${optstring} option; do
+#     case ${option} in
+#         n) quickmode=0;;
+#     esac
+# done
+
 declare -l first=$1
 
 if [[ $# -gt 0 && $first = "bart" ]]; then
@@ -29,6 +38,7 @@ elif [[ $# -gt 0 && $1 =~ [0-9]d[0-9] ]]; then
     #printf "%s \n%s \n" $numberofdie $diespots
     
     heading=$(printf "Rolling %sd%s" $numberofdie $diespots)
+    
     drumroll "$heading"
 
     for ((i=1;i<=numberofdie;i++));
