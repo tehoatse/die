@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
-drumroll () {
+quickmode=1
+numberofdie=1
+diespots=6
 
+drumroll () {
     if [[ $# -gt 0 ]]; then
         announcement=$1
     else   
@@ -18,38 +21,34 @@ drumroll () {
     sleep 0.4
 }
 
-# optstring="n"
-# quickmode=1
+getdie () {
+    if [[ $1 =~ [0-9]d[0-9] ]]; then 
+        numbers=${1/"d"/" "}
+        numberofdie=$(echo $numbers | awk '{print $1}')
+        diespots=$(echo $numbers | awk '{print $2}')
+        #printf "%s \n%s \n" $numberofdie $diespots
+    else
+        echo "Unrecognised die format."
+    fi
+}
 
-# while getopts ${optstring} option; do
-#     case ${option} in
-#         n) quickmode=0;;
-#     esac
-# done
+while getopts :d:n option; do
+     case $option in
+        d) getdie "$OPTARG";;
+        n) quickmode=0;;
+     esac
+ done
 
-declare -l first=$1
+heading=$(printf "Rolling %sd%s" $numberofdie $diespots)
 
-if [[ $# -gt 0 && $first = "bart" ]]; then
-    echo "THE, BART, THE"
-elif [[ $# -gt 0 && $1 =~ [0-9]d[0-9] ]]; then 
-    numbers=${1/"d"/" "}
-    numberofdie=$(echo $numbers | awk '{print $1}')
-    diespots=$(echo $numbers | awk '{print $2}')
-    #printf "%s \n%s \n" $numberofdie $diespots
-    
-    heading=$(printf "Rolling %sd%s" $numberofdie $diespots)
-    
-    # drumroll "$heading"
-
-    for ((i=1;i<=numberofdie;i++));
-    do
-        output=$(( RANDOM % $diespots + 1))
-        printf "%s " $output
-    done
-    echo ""
-else
-    # drumroll "Rolling 1d6"
-
-    output=$(( RANDOM % 6 + 1 ))
-    echo "$output"
+if [[ $quickmode -lt 1 ]]; then
+    echo "$heading"
+else 
+    drumroll "$heading"
 fi
+
+for ((i=1;i<=numberofdie;i++)); do
+    output=$(( RANDOM % $diespots + 1))
+    printf "%s " $output
+done
+    echo ""
