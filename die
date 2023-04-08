@@ -2,7 +2,7 @@
 
 drumroll () {
 
-    if [[ ${1:+1} ]]; then
+    if [[ $# -gt 0 ]]; then
         announcement=$1
     else   
         announcement="Drumroll!"
@@ -18,7 +18,11 @@ drumroll () {
     sleep 0.4
 }
 
-if [[ ${1:+1} ]]; then 
+declare -l first=$1
+
+if [[ $# -gt 0 && $first = "bart" ]]; then
+    echo "THE, BART, THE"
+elif [[ $# -gt 0 && $1 =~ [0-9]d[0-9] ]]; then 
     numbers=${1/"d"/" "}
     numberofdie=$(echo $numbers | awk '{print $1}')
     diespots=$(echo $numbers | awk '{print $2}')
