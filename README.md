@@ -1,6 +1,10 @@
 # die
 Simple bash script for rolling dice I made while learning bash scripting
 
-command die without argument gives result for 1d6
+command die.sh without argument gives result for 1d6
 
-If given argument of 10d20 will give results for ten throws of ten d20
+die.sh -n will roll the dice without making you wait
+die.sh -d will allow you define the dice you want thrown
+die.sh -d 10d6 will throw 10d6 and show the results for each
+
+

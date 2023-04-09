@@ -5,8 +5,8 @@ printtotal=1
 
 numberofdie=1
 diespots=6
-# declare -i dietotal
-# dietotal=0
+declare -i dietotal
+dietotal=0
 
 drumroll () {
     if [[ $# -gt 0 ]]; then
@@ -42,15 +42,17 @@ help () {
     printf "\t-d\t allows you to roll more than one dice of different sides"
     printf "\n\t\t die.sh -d 1d4 will give you a number between 1 and 4"
     printf "\n\t\t die.sh -d 3d6 will roll 3d6 and give the result"
-    printf "\n\n\t-n\t this option rolls the dice without the drum roll\n"
+    printf "\n\n\t-n\t this option rolls the dice without the... \033[3mpause for effect\033[0m\n"
+    printf "\n\t-t\tgives a total at the end of all the rolling\n"
     printf "\n--done--\n\n"
     exit
 }
 
-while getopts :d:n option; do
+while getopts :d:nt option; do
      case $option in
         d) getdie "$OPTARG";;
         n) quickmode=0;;
+        t) printtotal=0;;
         ?) help
      esac
  done
@@ -64,13 +66,15 @@ else
 fi
 
 for ((i=1;i<=numberofdie;i++)); do
+    declare -i output
     output=$(( RANDOM % $diespots + 1))
     printf "%s " $output
- #   dietotal+=$output
+    dietotal+="$output"
 done
 
-if [[ $printtotal -gt 0 ]]; then
-    printf "\nThe total of the die is %s" $dietotal
+echo ""
+
+if [[ $printtotal -lt 1 ]]; then
+    printf "The total of the die is %s\n" $dietotal
 fi
 
-#echo "$dietotal"
