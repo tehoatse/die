@@ -69,7 +69,7 @@ for ((i=1;i<=numberofdie;i++)); do
     declare -i output
     output=$(( RANDOM % $diespots + 1))
     printf "%s " $output
-    dietotal+="$output"
+    dietotal+=$output
 done
 
 echo ""
