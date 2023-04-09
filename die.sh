@@ -43,7 +43,7 @@ help () {
     printf "\n\t\t die.sh -d 1d4 will give you a number between 1 and 4"
     printf "\n\t\t die.sh -d 3d6 will roll 3d6 and give the result"
     printf "\n\n\t-n\t this option rolls the dice without the... \033[3mpause for effect\033[0m\n"
-    printf "\n\t-t\tgives a total at the end of all the rolling\n"
+    printf "\n\t-t\t gives a total at the end of all the rolling\n"
     printf "\n--done--\n\n"
     exit
 }
